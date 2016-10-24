@@ -11,10 +11,11 @@ except ValueError:
     sys.exit("Usage: client.py ip puerto register sip_address expires_value")
 REQ = ("REGISTER sip:" + USER + " SIP/2.0\r\nExpires: " + EXVAL + "\r\n\r\n")
 with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as my_socket:
-    my_socket.connect((SERVER, int(PORT)))
-    my_socket.send(bytes(REQ, 'utf-8') + b'\r\n')
-    try:
-        data = my_socket.recv(1024).decode('utf-8')
-    except ConnectionRefusedError:
-        sys.exit("No se puede conectar al servidor")
-    print(data)
+    if MET == "register":
+	    my_socket.connect((SERVER, int(PORT)))
+	    my_socket.send(bytes(REQ, 'utf-8') + b'\r\n')
+	    try:
+	        data = my_socket.recv(1024).decode('utf-8')
+	    except ConnectionRefusedError:
+	        sys.exit("No se puede conectar al servidor")
+	    print(data)
